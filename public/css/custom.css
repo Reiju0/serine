@@ -1,0 +1,49 @@
+.btn{
+	margin: 0px 1px;
+}
+
+.form-group{
+	padding:0px 5px;
+}
+
+td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+    width: 18px;
+}
+tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+
+
+.dataTables_wrapper .dataTables_length {
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+    text-align: right;
+    padding-top: 0.25em;
+}
+
+.dataTables_wrapper .dataTables_info {
+    clear: both;
+    float: left;
+    padding-top: 0.755em;
+}
+
+form .form-body{
+    overflow: visible !important;
+}
+
+
+#message_area{
+    margin: 20px;
+    padding: 10px 25px;
+    background: orange;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    display: none;
+}
+    

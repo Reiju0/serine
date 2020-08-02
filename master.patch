@@ -1,0 +1,79 @@
+diff --git a/vendor/cartalyst/sentinel/src/Roles/EloquentRole.php b/vendor/cartalyst/sentinel/src/Roles/EloquentRole.php
+index 5c96006..a1db8af 100644
+--- a/vendor/cartalyst/sentinel/src/Roles/EloquentRole.php
++++ b/vendor/cartalyst/sentinel/src/Roles/EloquentRole.php
+@@ -40,6 +40,7 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
+         'name',
+         'slug',
+         'permissions',
++        'group_id',
+     ];
+ 
+     /**
+@@ -70,7 +71,7 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
+      */
+     public function users()
+     {
+-        return $this->belongsToMany(static::$usersModel, 'role_users', 'role_id', 'user_id')->withTimestamps();
++        return $this->belongsToMany(static::$usersModel, 'role_users', 'role_id', 'user_id')->withTimestamps()->withPivot('user_groups');
+     }
+ 
+     /**
+diff --git a/vendor/cartalyst/sentinel/src/Users/EloquentUser.php b/vendor/cartalyst/sentinel/src/Users/EloquentUser.php
+index e040e25..0182e6c 100644
+--- a/vendor/cartalyst/sentinel/src/Users/EloquentUser.php
++++ b/vendor/cartalyst/sentinel/src/Users/EloquentUser.php
+@@ -42,9 +42,18 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
+     protected $fillable = [
+         'email',
+         'password',
+-        'last_name',
+-        'first_name',
++        'nama',
+         'permissions',
++        'username',
++        'nip',
++        'telp',
++        'foto',
++        'alamat',
++        'login_token',
++        'logout',
++        'aktif',
++        'hpassword'
++
+     ];
+ 
+     /**
+@@ -69,7 +78,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
+      *
+      * @var array
+      */
+-    protected $loginNames = ['email'];
++    protected $loginNames = ['username'];
+ 
+     /**
+      * The Eloquent roles model name.
+@@ -123,7 +132,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
+      */
+     public function roles()
+     {
+-        return $this->belongsToMany(static::$rolesModel, 'role_users', 'user_id', 'role_id')->withTimestamps();
++        return $this->belongsToMany(static::$rolesModel, 'role_users', 'user_id', 'role_id')->withTimestamps()->withPivot('user_groups');
+     }
+ 
+     /**
+diff --git a/vendor/cartalyst/sentinel/src/config/config.php b/vendor/cartalyst/sentinel/src/config/config.php
+index 296ac6f..a85ea51 100644
+--- a/vendor/cartalyst/sentinel/src/config/config.php
++++ b/vendor/cartalyst/sentinel/src/config/config.php
+@@ -133,8 +133,8 @@ return [
+ 
+     'checkpoints' => [
+ 
+-        'throttle',
+-        'activation',
++        //'throttle',
++        //'activation',
+ 
+     ],
+ 
